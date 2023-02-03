@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class FileBrowserUpdate : MonoBehaviour
 {
     public RawImage rawImage;
+    public string customPath;
 
     public void OpenFileBrowser()
     {
@@ -20,6 +21,7 @@ public class FileBrowserUpdate : MonoBehaviour
         {
             //Load image from local path with UWR
             StartCoroutine(LoadImage(path));
+            customPath = path;
         });
     }
 
