@@ -1,5 +1,6 @@
 # sandbox_
-![logo-512](https://user-images.githubusercontent.com/89384053/216733625-eed47700-5186-480b-afcd-ad0a1a05f223.png)
+
+![logo-origin](https://user-images.githubusercontent.com/89384053/216733690-525f843c-3f62-4d1c-b3e5-8c58804c97e1.png)
 
 오픈소스 샌드박스 게임
 
