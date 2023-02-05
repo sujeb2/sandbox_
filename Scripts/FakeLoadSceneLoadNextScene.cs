@@ -11,6 +11,8 @@ public class FakeLoadSceneLoadNextScene : MonoBehaviour
     }
 
     void Start() {
-        Invoke("loadnext", 3.0f);
+        int rndnum = Random.Range(1, 5);
+        Debug.Log("current random sec: " + rndnum);
+        Invoke("loadnext", rndnum);
     }
 }
