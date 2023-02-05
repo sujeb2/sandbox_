@@ -3,8 +3,8 @@
 
     TO-DO:
         - IN-GAME SCRIPTING
-        - CUSTOM BLOCKSET
-        - CUSTOM ITEMSET
+        = CUSTOM BLOCKSET
+        = CUSTOM ITEMSET
         + CUSTOM TEXTURE LOAD
         - CUSTOM TAG
         + CAMERA BUG FIX
