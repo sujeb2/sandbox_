@@ -1,4 +1,4 @@
-﻿
+
 using AnotherFileBrowser.Windows;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class FileBrowserUpdateItem : MonoBehaviour
 {
     public RawImage rawImage;
+    public string customItemPath;
 
     public void OpenFileBrowser()
     {
@@ -20,6 +21,7 @@ public class FileBrowserUpdateItem : MonoBehaviour
         {
             //Load image from local path with UWR
             StartCoroutine(LoadImage(path));
+            customItemPath = path;
         });
     }
 
