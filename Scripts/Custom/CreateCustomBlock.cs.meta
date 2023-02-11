@@ -3,7 +3,11 @@ guid: 4b761bd190536ef44b81f27dce097086
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - addGravity: {instanceID: 0}
+  - addCollider: {instanceID: 0}
+  - setCircle: {instanceID: 0}
+  - defsp: {fileID: 7482667652216324306, guid: af9ea53b3734d834eab22108883075fd, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
