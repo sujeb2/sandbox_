@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System;
+using System.Collections;
 
 public static class ConvertToSprite{
     public static Sprite Convert2Sprite(this Texture2D texture){
@@ -11,28 +12,50 @@ public static class ConvertToSprite{
 
 public class CreateCustomBlock : MonoBehaviour
 {
+    // toggle
     public Toggle addGravity;
     public Toggle addCollider;
     public Toggle setCircle;
     public Toggle setSpringJoint;
-    public Input x;
-    public Input y;
+    public Toggle setNormalSize;
+    public Toggle addTrailEffect;
+
+    // input
+    public InputField x;
+    public InputField y;
+    
+    // bool
     bool isGravityOn = false;
     bool isColliderOn = false;
     bool isCircleColliderOn = false;
     bool isSpringJointOn = false;
     bool isTrailEffectOn = false;
-    private int limit = 99999999;
+    bool isSetNativeSizeOn = false;
+
+    // etc...
     BoxCollider2D bc;
     SpriteRenderer sr;
     SpringJoint2D sp;
     FileBrowserUpdate fbu;
     MousePointCord point;
+    TrailRenderer tr;
+    
+    // set
     public Sprite defsp;
     public RawImage img;
+    public Material defmat;
+    public Vector2 nativeSize;
 
     void Start() {
+        nativeSize = new Vector3(0.5f, 0.5f, 1f);
+        try {
         fbu = GameObject.Find("TextureLoadManager").GetComponent<FileBrowserUpdate>();
+        } catch (Exception ex) {
+            Debug.LogError("Failed to load 'TextureLoadManager'.");
+            Debug.LogError("Reason: " + ex.Message);
+        } finally {
+            Debug.Log("Loaded.");
+        }
     }
 
     public void create() {
@@ -42,8 +65,7 @@ public class CreateCustomBlock : MonoBehaviour
             customObject.tag = "CustomBlock";
             customObject.AddComponent<SpriteRenderer>();
             customObject.AddComponent<RemoveCustom>();
-            limit--;
-            Debug.Log("CustomBlock Left: " + limit);
+            customObject.AddComponent<DragNDrop>();
 
             sr = customObject.GetComponent<SpriteRenderer>();
             try {
@@ -77,12 +99,28 @@ public class CreateCustomBlock : MonoBehaviour
                 isCircleColliderOn = true;
             } else {isCircleColliderOn = false;}
 
-            if(setCircle.isOn) {
+            if(setSpringJoint.isOn) {
                 customObject.AddComponent<SpringJoint2D>();
                 sp = customObject.GetComponent<SpringJoint2D>();
+                //sp.anchor = 
                 isSpringJointOn = true;
             } else {isSpringJointOn = false;}
-            Debug.Log("Rigidbody2D = " + isGravityOn + ", BoxCollider2D = " + isColliderOn + ", CircleCollider2D = " + isCircleColliderOn + ", SpringJoint2D = " + isSpringJointOn + ", TrailEffect = " + isTrailEffectOn);            
+            
+            if(setNormalSize.isOn) {
+                customObject.transform.localScale = nativeSize;
+                Debug.Log("customBlock Sprite size: " + sr.size);
+                isSetNativeSizeOn = true;
+            } else {isSetNativeSizeOn = false;}
+
+            if(addTrailEffect.isOn) {
+                customObject.AddComponent<TrailRenderer>();
+                tr = customObject.GetComponent<TrailRenderer>();
+                tr.time = 1.0f;
+                tr.material = defmat;
+                tr.startWidth = 0.2f;
+                isTrailEffectOn = true;
+            } else {isTrailEffectOn = false;}
+            Debug.Log("Rigidbody2D = " + isGravityOn + ", BoxCollider2D = " + isColliderOn + ", CircleCollider2D = " + isCircleColliderOn + ", SpringJoint2D = " + isSpringJointOn + ", TrailEffect = " + isTrailEffectOn + ", SetNativeSize = " + isSetNativeSizeOn);            
         }
         catch(Exception ex) {
             Debug.LogError("An Error occured while trying to create customBlock.");
