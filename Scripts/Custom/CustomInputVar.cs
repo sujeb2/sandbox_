@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Collections;
 
 public class CustomInputVar : MonoBehaviour
 {
@@ -20,13 +22,19 @@ public class CustomInputVar : MonoBehaviour
     public Text itemTagText;
 
     private void Awake() {
+        try {
         blockName = blockNameInput.GetComponent<InputField>().text;
         blockTag = blockTagInput.GetComponent<InputField>().text;
         itemName = itemNameInput.GetComponent<InputField>().text;
         itemTag = itemTagInput.GetComponent<InputField>().text;
+        } catch (Exception ex) {
+            Debug.LogError("An error occured while trying to load InputFields.");
+            Debug.LogError("Reason: " + ex.Message);
+        }
     }
 
     private void Update() {
+        try {
         if (blockName.Length > 0 && Input.GetKeyDown(KeyCode.Return)){
             Debug.Log("Set custom block name to: " + blockName);
         }
@@ -45,6 +53,10 @@ public class CustomInputVar : MonoBehaviour
 
         blockTagText.text = blockTag;
         itemTagText.text = itemTag;
+        } catch (Exception ex) {
+            Debug.LogError("An error occured while trying to set tag.");
+            Debug.LogError("Reason: " + ex.Message);
+        }
     }
  
     //public void BlockNameInput() {

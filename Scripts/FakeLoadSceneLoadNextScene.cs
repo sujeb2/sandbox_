@@ -7,7 +7,7 @@ public class FakeLoadSceneLoadNextScene : MonoBehaviour
 {
     void loadnext() {
         SceneManager.LoadScene("Game");
-        Debug.Log("Loaded");
+        Debug.Log("Loaded " + SceneManager.GetActiveScene().name);
     }
 
     void Start() {

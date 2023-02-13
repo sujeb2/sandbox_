@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SetResolution : MonoBehaviour
 {
-    List<int> widths = new List<int>() {1920, 1600, 1280, 680};
-    List<int> heights = new List<int>() {1080, 900, 720, 480};
+    List<int> widths = new List<int>() {1920, 1600, 1280};
+    List<int> heights = new List<int>() {1080, 900, 720};
 
     public void SetScreenSize(int index) {
         int width = widths[index];
