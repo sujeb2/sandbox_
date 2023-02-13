@@ -421,6 +421,7 @@ GameObject:
   - component: {fileID: 713458966}
   - component: {fileID: 713458968}
   - component: {fileID: 713458969}
+  - component: {fileID: 713458970}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -561,6 +562,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 593c0ed8084864345ba0bd3bf424dc99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &713458970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713458965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a09ade9f487646a4d9879e2e1bc227bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &745323858
@@ -712,7 +725,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: sandbox_ - build 0211 (customblock alpha)
+  m_Text: sandbox_ - build 0213
 --- !u!222 &783844777
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1451,7 +1464,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1698596048}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 713458970}
+        m_TargetAssemblyTypeName: BugReportButton, Assembly-CSharp
+        m_MethodName: bug
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1698596048
 MonoBehaviour:
   m_ObjectHideFlags: 0
