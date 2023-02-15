@@ -19,6 +19,7 @@ public class CreateCustomBlock : MonoBehaviour
     public Toggle setSpringJoint;
     public Toggle setNormalSize;
     public Toggle addTrailEffect;
+    public Toggle addParticleEffect;
 
     // input
     public InputField x;
@@ -31,6 +32,7 @@ public class CreateCustomBlock : MonoBehaviour
     bool isSpringJointOn = false;
     bool isTrailEffectOn = false;
     bool isSetNativeSizeOn = false;
+    bool isAddPaticleEffectOn = false;
 
     // etc...
     BoxCollider2D bc;
@@ -39,12 +41,39 @@ public class CreateCustomBlock : MonoBehaviour
     FileBrowserUpdate fbu;
     MousePointCord point;
     TrailRenderer tr;
+    ParticleSystem ps;
     
     // set
     public Sprite defsp;
     public RawImage img;
     public Material defmat;
     public Vector2 nativeSize;
+
+    // particle
+    public Toggle loopToggle;
+    public Toggle flipToggle;
+    public Toggle noiseToggle;
+
+    public Slider startSpeedSlider;
+    public Slider startDelaySlider;
+    public Slider startRotationSlider;
+    public Slider particleGravitySlider;
+    public Slider maxParticleSlider;
+    public Slider particleDurationSlider;
+    public Slider redSlider;
+    public Slider greenSlider;
+    public Slider blueSlider;
+    public Slider aslider;
+
+    public InputField particleX;
+    public InputField particleY;
+    public Material defmater;
+    public Vector3 pivot;
+
+    public float hSliderValueR = 0.0F;
+    public float hSliderValueG = 0.0F;
+    public float hSliderValueB = 0.0F;
+    public float hSliderValueA = 1.0F;
 
     void Start() {
         nativeSize = new Vector3(0.5f, 0.5f, 1f);
@@ -54,8 +83,16 @@ public class CreateCustomBlock : MonoBehaviour
             Debug.LogError("Failed to load 'TextureLoadManager'.");
             Debug.LogError("Reason: " + ex.Message);
         } finally {
-            Debug.Log("Loaded.");
+            Debug.Log("Loaded TextureLoadManager.");
         }
+        //try {
+        //fpu = GameObject.Find("TextureLoadManager").GetComponent<FlieBrowserUpdateParticle>();
+        //} catch (Exception ex) {
+        //    Debug.LogError("Failed to load 'TextureLoadManager'.");
+        //    Debug.LogError("Reason: " + ex.Message);
+        //} finally {
+        //    Debug.Log("Loaded TextureLoadManager.");
+        //}
     }
 
     public void create() {
@@ -120,7 +157,51 @@ public class CreateCustomBlock : MonoBehaviour
                 tr.startWidth = 0.2f;
                 isTrailEffectOn = true;
             } else {isTrailEffectOn = false;}
-            Debug.Log("Rigidbody2D = " + isGravityOn + ", BoxCollider2D = " + isColliderOn + ", CircleCollider2D = " + isCircleColliderOn + ", SpringJoint2D = " + isSpringJointOn + ", TrailEffect = " + isTrailEffectOn + ", SetNativeSize = " + isSetNativeSizeOn);            
+
+            if(addParticleEffect.isOn) {
+                try {
+                    ParticleSystemRenderer psr;
+                    customObject.AddComponent<ParticleSystem>();
+                    ps = customObject.GetComponent<ParticleSystem>();
+                    psr = customObject.GetComponent<ParticleSystemRenderer>();
+                    hSliderValueR = redSlider.value;
+                    hSliderValueG = greenSlider.value;
+                    hSliderValueB = blueSlider.value;
+                    hSliderValueA = aslider.value;
+                    //pivot.x = particleX
+                    //pivot.y = particleY;
+                    pivot.z = 0; 
+
+                    var noise = ps.noise;
+                    var pmain = ps.main;
+
+                    psr.material = defmater;
+                    psr.pivot = pivot;
+                    pmain.startColor = new Color(hSliderValueR, hSliderValueG, hSliderValueB, hSliderValueA);
+                    //render.pivot(4.0f, 0f, 0f);
+
+                    pmain.startDelay = startDelaySlider.value;
+                    pmain.startRotation = startRotationSlider.value;
+                    pmain.maxParticles = (int)maxParticleSlider.value;
+                    pmain.startSize = particleDurationSlider.value;
+                    pmain.startRotation = startRotationSlider.value;
+
+                    if(noiseToggle.isOn) {noise.enabled = true;}
+                    if(loopToggle.isOn) {pmain.loop = true;}
+                    if(flipToggle.isOn) {pmain.flipRotation = 1;}
+
+                    Debug.Log("flipRotation = " + pmain.flipRotation + " noiseMap = " + noise.enabled + " loop = " + pmain.loop + " startDelay = " + pmain.startDelay + " startRotation = " + pmain.startRotation + " maxParticle = " + pmain.maxParticles + " duration = " + pmain.duration);
+
+                    isAddPaticleEffectOn = true;
+                } catch (Exception ex) {
+                    Debug.LogError("An Error occured while trying to setup particle system.");
+                    Debug.LogError("Reason: " + ex.Message);
+                } finally {
+                    Debug.Log("Added particle system.");
+                }
+            } else {isAddPaticleEffectOn = false;}
+
+            Debug.Log("Rigidbody2D = " + isGravityOn + ", BoxCollider2D = " + isColliderOn + ", CircleCollider2D = " + isCircleColliderOn + ", SpringJoint2D = " + isSpringJointOn + ", TrailEffect = " + isTrailEffectOn + ", SetNativeSize = " + isSetNativeSizeOn + ", AddParitcleEffect = " + isAddPaticleEffectOn);            
         }
         catch(Exception ex) {
             Debug.LogError("An Error occured while trying to create customBlock.");
