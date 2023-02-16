@@ -14,9 +14,9 @@ sandbox_ 는 앞에서 말했다 싶이 오픈 소스 샌드박스 게임이에�
 최소한의 크래딧이라도 남겨주시면 감사하겠습니다.
 
 ## CREDITS
-: AnotherFileBrowser by. SrejonKhan
+> AnotherFileBrowser by. SrejonKhan
+> IngameDebugConsole by. yasirkula
 
-: IngameDebugConsole by. yasirkula
 
 
 : This project requires Unity Engine 2020.3
