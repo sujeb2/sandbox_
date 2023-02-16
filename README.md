@@ -1,5 +1,5 @@
 # sandbox_
-/github/v/release/:user/:repo?display_name=tag
+[/github/v/release/:user/:repo?display_name=tag](https://img.shields.io/github/v/tag/sujeb2/sandbox_?label=version&style=for-the-badge)
 
 ![logo-origin](https://user-images.githubusercontent.com/89384053/216733690-525f843c-3f62-4d1c-b3e5-8c58804c97e1.png)
 
