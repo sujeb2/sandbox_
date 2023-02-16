@@ -24,6 +24,9 @@ public class CreateCustomBlock : MonoBehaviour
     // input
     public InputField x;
     public InputField y;
+    public InputField tag;
+
+    public string tagtext;
     
     // bool
     bool isGravityOn = false;
@@ -76,6 +79,7 @@ public class CreateCustomBlock : MonoBehaviour
     public float hSliderValueA = 1.0F;
 
     void Start() {
+        tagtext = tag.text;
         nativeSize = new Vector3(0.5f, 0.5f, 1f);
         try {
         fbu = GameObject.Find("TextureLoadManager").GetComponent<FileBrowserUpdate>();
@@ -105,6 +109,7 @@ public class CreateCustomBlock : MonoBehaviour
             customObject.AddComponent<DragNDrop>();
 
             sr = customObject.GetComponent<SpriteRenderer>();
+            Debug.Log(customObject.tag);
             try {
             sr.sprite = ConvertToSprite.Convert2Sprite(img.texture as Texture2D);
             Debug.Log("Texture Loaded Successfully!");
@@ -150,12 +155,17 @@ public class CreateCustomBlock : MonoBehaviour
             } else {isSetNativeSizeOn = false;}
 
             if(addTrailEffect.isOn) {
-                customObject.AddComponent<TrailRenderer>();
-                tr = customObject.GetComponent<TrailRenderer>();
-                tr.time = 1.0f;
-                tr.material = defmat;
-                tr.startWidth = 0.2f;
-                isTrailEffectOn = true;
+                try {
+                    customObject.AddComponent<TrailRenderer>();
+                    tr = customObject.GetComponent<TrailRenderer>();
+                    tr.time = 1.0f;
+                    tr.material = defmat;
+                    tr.startWidth = 0.2f;
+                    isTrailEffectOn = true;
+                } catch (Exception ex) {
+                    Debug.LogError("An error ocurred while trying to setup traileffect.");
+                    Debug.LogError("Reason: " + ex.Message);
+                }
             } else {isTrailEffectOn = false;}
 
             if(addParticleEffect.isOn) {
