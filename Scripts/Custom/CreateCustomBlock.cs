@@ -22,8 +22,6 @@ public class CreateCustomBlock : MonoBehaviour
     public Toggle addParticleEffect;
 
     // input
-    public InputField x;
-    public InputField y;
     public InputField tag;
 
     public string tagtext;
@@ -45,6 +43,9 @@ public class CreateCustomBlock : MonoBehaviour
     MousePointCord point;
     TrailRenderer tr;
     ParticleSystem ps;
+    Transform tf;
+
+    private int num = 0;
     
     // set
     public Sprite defsp;
@@ -108,6 +109,7 @@ public class CreateCustomBlock : MonoBehaviour
             customObject.AddComponent<RemoveCustom>();
             customObject.AddComponent<DragNDrop>();
 
+            tf = customObject.GetComponent<Transform>();
             sr = customObject.GetComponent<SpriteRenderer>();
             Debug.Log(customObject.tag);
             try {
@@ -178,8 +180,8 @@ public class CreateCustomBlock : MonoBehaviour
                     hSliderValueG = greenSlider.value;
                     hSliderValueB = blueSlider.value;
                     hSliderValueA = aslider.value;
-                    //pivot.x = particleX
-                    //pivot.y = particleY;
+                    pivot.x = tf.localPosition.x;
+                    pivot.y = tf.localPosition.y;
                     pivot.z = 0; 
 
                     var noise = ps.noise;
@@ -212,13 +214,14 @@ public class CreateCustomBlock : MonoBehaviour
             } else {isAddPaticleEffectOn = false;}
 
             Debug.Log("Rigidbody2D = " + isGravityOn + ", BoxCollider2D = " + isColliderOn + ", CircleCollider2D = " + isCircleColliderOn + ", SpringJoint2D = " + isSpringJointOn + ", TrailEffect = " + isTrailEffectOn + ", SetNativeSize = " + isSetNativeSizeOn + ", AddParitcleEffect = " + isAddPaticleEffectOn);            
+            num++;
         }
         catch(Exception ex) {
             Debug.LogError("An Error occured while trying to create customBlock.");
             Debug.LogError("Reason: " + ex.Message);
         }
         finally {
-            Debug.Log("Created customBlock");
+            Debug.Log("Created customBlock, " + num);
         }
     }
 }
