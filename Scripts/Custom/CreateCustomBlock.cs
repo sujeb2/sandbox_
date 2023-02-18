@@ -153,6 +153,7 @@ public class CreateCustomBlock : MonoBehaviour
             if(setNormalSize.isOn) {
                 customObject.transform.localScale = nativeSize;
                 Debug.Log("customBlock Sprite size: " + sr.size);
+                sr.size = new Vector2(0.5f, 0.5f);
                 isSetNativeSizeOn = true;
             } else {isSetNativeSizeOn = false;}
 
