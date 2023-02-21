@@ -8,11 +8,18 @@ public class SideGameSettingListActive : MonoBehaviour
     public GameObject blocklist;
     public GameObject gamesettinglist;
     public GameObject customlist;
+    public Animator ani;
 
     public void listactive(){
         blocklist.SetActive(false);
         itemlist.SetActive(false);
         gamesettinglist.SetActive(true);
         customlist.SetActive(false);
+        ani.SetBool("isError", true);
+        Invoke("stop", 0.5f);
+    }
+    
+    void stop() {
+        ani.SetBool("isBlock", false);
     }
 }

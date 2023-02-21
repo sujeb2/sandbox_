@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.IO;
 using System;
 using System.Collections;
+using TMPro;
 
 public static class ConvertToSprite{
     public static Sprite Convert2Sprite(this Texture2D texture){
@@ -44,6 +45,10 @@ public class CreateCustomBlock : MonoBehaviour
     TrailRenderer tr;
     ParticleSystem ps;
     Transform tf;
+
+    public Animator ani;
+    public TextMeshProUGUI errortxt;
+    public TextMeshProUGUI errormoretxt;
 
     private int num = 0;
     
@@ -118,8 +123,12 @@ public class CreateCustomBlock : MonoBehaviour
             Debug.Log("Block texture path:" + fbu.customPath);
             }
             catch(Exception ex) {
+                ani.SetBool("isError", true);
+                errortxt.text = "- 텍스쳐를 지정하던중 오류가 발생했어요";
+                errormoretxt.text = ex.Message;
                 Debug.LogError("Trying to load texture: " + fbu.customPath + " but failed.");
                 Debug.LogError("Reason: " + ex.Message);
+                Invoke("stop", 0.5f);
             }
             finally {
                 Debug.Log("Done.");
@@ -166,8 +175,12 @@ public class CreateCustomBlock : MonoBehaviour
                     tr.startWidth = 0.2f;
                     isTrailEffectOn = true;
                 } catch (Exception ex) {
+                    ani.SetBool("isError", true);
+                    errortxt.text = "- 이펙트를 지정하던중 에러가 발생했어요.";
+                    errormoretxt.text = ex.Message;
                     Debug.LogError("An error ocurred while trying to setup traileffect.");
                     Debug.LogError("Reason: " + ex.Message);
+                    Invoke("stop", 0.5f);
                 }
             } else {isTrailEffectOn = false;}
 
@@ -218,11 +231,19 @@ public class CreateCustomBlock : MonoBehaviour
             num++;
         }
         catch(Exception ex) {
+            ani.SetBool("isError", true);
+            errortxt.text = "- 무언가 하던중 에러가 발생했어요";
+            errormoretxt.text = ex.Message;
             Debug.LogError("An Error occured while trying to create customBlock.");
             Debug.LogError("Reason: " + ex.Message);
+            Invoke("stop", 5f);
         }
         finally {
             Debug.Log("Created customBlock, " + num);
         }
+    }
+
+    void stop() {
+        ani.SetBool("isError", false);
     }
 }
